@@ -32,4 +32,24 @@ function M.setup(options)
 	require("cmp").register_source("codeium", source)
 end
 
+function M.enabled()
+	if source == nil then return nil end
+	return source:enabled()
+end
+
+function M.enable()
+	if source == nil then return nil end
+	return source:enable()
+end
+
+function M.disable()
+	if source == nil then return nil end
+	return source:disable()
+end
+
+function M.toggle()
+	if source == nil then return nil end
+	return source:toggle()
+end
+
 return M
