@@ -75,6 +75,7 @@ end
 
 local Source = {
 	server = nil,
+	_enabled = true,
 }
 Source.__index = Source
 
@@ -94,6 +95,21 @@ function Source:get_position_encoding_kind()
 	return "utf-8"
 end
 
+---@return boolean is_enabled Whether the cmp source is currently enabled, i.e providing completion and interacting with the server.
+function Source:enabled()
+	return self._enabled
+end
+
+function Source:disable() self._enabled = false end
+
+function Source:enable() self._enabled = true end
+
+---@return boolean is_enabled
+function Source:toggle()
+	self._enabled = not self._enabled
+	return self._enabled
+end
+
 require("cmp").event:on("confirm_done", function(event)
 	if
 		event.entry
@@ -109,6 +125,8 @@ require("cmp").event:on("confirm_done", function(event)
 end)
 
 function Source:complete(params, callback)
+	if not self._enabled then return end
+
 	local context = params.context
 	local offset = params.offset
 	local cursor = context.cursor
