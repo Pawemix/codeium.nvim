@@ -75,7 +75,7 @@ end
 
 local Source = {
 	server = nil,
-	_enabled = true,
+	_enabled = false,
 }
 Source.__index = Source
 
