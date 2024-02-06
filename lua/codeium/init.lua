@@ -1,5 +1,7 @@
 local M = {}
 
+local source = nil
+
 function M.setup(options)
 	local Source = require("codeium.source")
 	local Server = require("codeium.api")
@@ -26,7 +28,7 @@ function M.setup(options)
 		end,
 	})
 
-	local source = Source:new(s)
+	source = Source:new(s)
 	require("cmp").register_source("codeium", source)
 end
 
